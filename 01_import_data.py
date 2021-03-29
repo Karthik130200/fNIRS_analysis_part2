@@ -7,10 +7,16 @@ from config import BASEPATH
 datafile = os.path.join(BASEPATH, 'original', 'SSC_TS.csv')
 data = pd.read_csv(datafile)
 
-dyads = ['SSC13', 'SSC16', 'SSC35', 'SSC37', 'SSC24', 'SSC38', 'SSC23', 
-         'SSC34', 'SSC19', 'SSC25', 'SSC31', 'SSC33', 'SSC29', 'SSC15', 
-         'SSC28', 'SSC39', 'SSC26', 'SSC12', 'SSC32', 'SSC21', 'SSC36', 
-         'SSC27', 'SSC18', 'SSC20']
+# dyads = ['SSC13', 'SSC16', 'SSC35', 'SSC37', 'SSC24', 'SSC38', 'SSC23', 
+#          'SSC34', 'SSC19', 'SSC25', 'SSC31', 'SSC33', 'SSC29', 'SSC15', 
+#          'SSC28', 'SSC39', 'SSC26', 'SSC12', 'SSC32', 'SSC21', 'SSC36', 
+#          'SSC27', 'SSC18', 'SSC20']
+
+dyads = []
+for d in data['ID']:
+    if isinstance(d, str):
+        dyads.append(d[:-1])
+dyads = np.unique(dyads)
 
 #% get sounds
 sounds = data['sound'].unique()
@@ -46,8 +52,8 @@ for COND in ['SEP', 'TOG']:
                         data_2_ch = data_2[f'CH{CH}']
                         data_3_ch = data_3[f'CH{CH}']
                         
+                        #all three repetitions need to be available
                         if ~(data_1_ch.isna().any() | data_2_ch.isna().any() | data_3_ch.isna().any()):
-                            
                             OUTDIR = os.path.join(BASEPATH, 'channels', COND, SOUND, DYAD, PARENT, f'CH{CH}')
                             os.makedirs(OUTDIR, exist_ok=True)
                             data_1_ch.to_csv(os.path.join(OUTDIR, '1.csv'), index=False, header=[f'CH{CH}'])
@@ -55,6 +61,24 @@ for COND in ['SEP', 'TOG']:
                             data_3_ch.to_csv(os.path.join(OUTDIR, '3.csv'), index=False, header=[f'CH{CH}'])
                         else:
                             print('nans', COND, SOUND, DYAD, PARENT, CH)
+                            
+                        #-------------------------------
+                        # code to keep all available repetitions
+                        # #if at least one rep is available
+                        # # = if they are NOT all non-available
+                        # #create folder
+                        # if ~(data_1_ch.isna().any() & data_2_ch.isna().any() & data_3_ch.isna().any()):
+                        #     OUTDIR = os.path.join(BASEPATH, 'channels', COND, SOUND, DYAD, PARENT, f'CH{CH}')
+                        #     os.makedirs(OUTDIR, exist_ok=True)
+                            
+                        # for data, rep in zip([data_1_ch, data_2_ch, data_3_ch],
+                        #                      [1,2,3]):
+                            
+                        #     if ~(data.isna().any()): #if data of rep is available
+                        #         data.to_csv(os.path.join(OUTDIR, f'{rep}.csv'), index=False, header=[f'CH{CH}'])
+                        #     else:
+                        #         print('nans', COND, SOUND, DYAD, PARENT, CH, rep)
+                        #-------------------------------
                         
                 else:
                     print('bad ts', COND, SOUND, DYAD, PARENT, data_parent.shape)

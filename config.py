@@ -75,7 +75,7 @@ def get_distance(distance, LAG):
 
     return(dist)
 
-BASEPATH = '/home/karthikeyan/data'
+BASEPATH = '/home/bizzego/UniTn/data/nirs_synchrony_measures_karthik'
      
 FSAMP = 7.81
 DEMEAN = True

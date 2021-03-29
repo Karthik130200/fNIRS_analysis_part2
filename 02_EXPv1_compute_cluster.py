@@ -6,11 +6,9 @@ from config import BASEPATH, clusters, compute_cluster
 N_MIN_CLUSTER = 3
 NORMALIZE = True
 
-condition = ['TOG', 'SEP']
-
 #%%
 datadir = os.path.join(BASEPATH, 'channels')
-outdir = os.path.join(BASEPATH, 'Original','clusters_norm_together_v2')
+outdir = os.path.join(BASEPATH, 'clusters_norm')
 
 #%%
 metadata_all = []
@@ -67,4 +65,4 @@ for condition in ['TOG','SEP']:
 
 #%%
 metadata_all = pd.DataFrame(metadata_all)
-metadata_all.to_csv(os.path.join(outdir, 'metadata_clusters_TOG.csv'))
+metadata_all.to_csv(os.path.join(outdir, 'metadata_clusters.csv'))

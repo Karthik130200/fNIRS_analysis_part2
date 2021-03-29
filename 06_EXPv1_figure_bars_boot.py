@@ -3,7 +3,7 @@ import os
 import matplotlib.pyplot as plt
 import pingouin as pg
 import numpy as np
-np.random.seed(1234)
+np.random.seed(267)
 from config import BASEPATH
 
 palette = ['#2196F3', '#4CAF50', '#FF5722', '#9C27B0']
@@ -39,7 +39,7 @@ def get_d_p(data_cluster):
 #%% ALL SOUNDS TOGETHER
 fig, axes = plt.subplots(1, 4, figsize = (12,3), sharey=True, sharex=True)
 
-NORM = 'synch_2_norm/clusters_norm_together_v2'
+NORM = 'synch_norm/clusters_norm'
 
 results = []
 iii=0

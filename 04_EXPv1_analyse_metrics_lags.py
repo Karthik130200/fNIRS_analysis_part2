@@ -27,7 +27,7 @@ def get_d_p(data_cluster):
 fig, axes = plt.subplots(2, 4, figsize = (12,6), sharey=True, sharex=True)
 plt.suptitle("All sounds \n Cohen's d")
 
-NORM_DIR = ['synch_2_norm/clusters_norm_together_v2', 'synch_2/clusters_norm_together_v2']
+NORM_DIR = ['synch_norm/clusters_norm']
 for i_norm, NORM in enumerate(NORM_DIR):
     CLUST_TYPE = NORM.split('/')[1]
     SYNCH_TYPE = NORM.split('/')[0]
